@@ -15,7 +15,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ .Values.component }}
   labels:
     {{- include "roboshop.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -49,12 +49,12 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}
+                name: {{ .component }}
                 port:
-                  number: {{ $svcPort }}
+                  number: {{ .port }}
               {{- else }}
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
+              serviceName: {{ .component }}
+              servicePort: {{ .port }}
               {{- end }}
           {{- end }}
     {{- end }}

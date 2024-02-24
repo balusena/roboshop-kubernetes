@@ -13,3 +13,4 @@ spec:
       name: http
   selector:
     {{- include "roboshop.selectorLabels" . | nindent 4 }}
+

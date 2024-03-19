@@ -6,9 +6,9 @@ pipeline {
   }
 
   parameters {
-          string(name: 'COMPONENT', defaultValue: '', description: 'Which Component')
-          string(name: 'ENV', defaultValue: 'prod', description: 'Which Env')
-          string(name: 'APP_VERSION', defaultValue: '2.0.0', description: 'Which Version')
+        string(name: 'COMPONENT', defaultValue: '', description: 'Which Component')
+        string(name: 'ENV', defaultValue: 'prod', description: 'Which Env')
+        string(name: 'APP_VERSION', defaultValue: '2.0.0', description: 'Which Version')
 
   }
 
@@ -16,7 +16,7 @@ pipeline {
     stage('Clone App Repo') {
       steps {
         dir('APP') {
-          git branch: 'main', url: 'https://github.com/balusena/${COMPONENT}'
+          git branch: 'main', url: 'http://github.com/balusena/${COMPONENT}'
         }
       }
     }
@@ -35,5 +35,4 @@ pipeline {
       cleanWs()
     }
   }
-
 }

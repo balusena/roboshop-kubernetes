@@ -20,7 +20,7 @@ spec:
       labels:
         {{- include "roboshop.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -37,7 +37,7 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: param-volume
-        {{- if .Values.schemaInitContainer.enabled }}
+      {{- if .Values.schemaInitContainer.enabled }}
         - name: schema-load
           image: 828448425071.dkr.ecr.us-east-1.amazonaws.com/schema-load-init-container:latest
           imagePullPolicy: Always
@@ -47,7 +47,7 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: param-volume
-        {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Values.component }}
           securityContext:

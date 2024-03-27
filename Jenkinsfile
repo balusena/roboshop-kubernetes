@@ -8,24 +8,23 @@ pipeline {
   parameters {
       string(name: 'COMPONENT', defaultValue: '', description: 'Which Component')
       string(name: 'ENV', defaultValue: 'prod', description: 'Which Env')
-      string(name: 'APP_VERSION', defaaultValue: '2.0.0', description: 'Which Version )
+      string(name: 'APP_VERSION', defaultValue: '2.0.0', description: 'Which Version')
   }
 
   stages {
     stage('Clone App Repo') {
       steps {
         dir('APP') {
-          git branch: 'main', url: 'http://github.com/balusena/${COMPONENT}'
+          git branch: 'main', url: "http://github.com/balusena/${params.COMPONENT}"
         }
       }
     }
 
     stage('Helm Chart Deploy') {
       steps {
-        sh 'aws eks update-kubeconfig --name ${ENV}-eks'
-        sh 'helm upgrade -i ${COMPONENT} roboshop -f APP/helm.yaml --set image.tag=${APP_VERSION}'
+        sh "aws eks update-kubeconfig --name ${params.ENV}-eks"
+        sh "helm upgrade -i ${params.COMPONENT} roboshop -f APP/helm.yaml --set image.tag=${params.APP_VERSION}"
       }
-
     }
   }
 
